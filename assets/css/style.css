@@ -1,5 +1,75 @@
 body {
-	background-image: url(../images/background.jpg);
-	background-size: 100%;
-	background-repeat: no-repeat;
+    background-image: url(../images/background.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+header {
+    padding: 10px;
+    margin-bottom: 25px;
+    right: ;
+}
+
+h1 {
+    color: #ffffff;
+    text-shadow: -1px 0 #f9792e, 0 1px #f9792e, 1px 0 #f9792e, 0 -1px #f9792e;
+    font-size: 50px;
+    float: left;
+}
+
+.main {
+    position: absolute;
+    left: 16px;
+	border: 1px;
+	margin: auto;
+	padding: 20px;
+	width: 400px;
+	height: 500px;
+	margin-top: 30px;
+    color: #ffffff;
+    text-align: center;
+
+}
+
+#start {
+    margin: 20px;
+    padding: 32px 50px;
+    background-color: #f9792e;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 12px;
+    border: 2px solid #0d0b70;
+    text-align: center;
+}
+
+
+#timer {
+    padding: 20px;
+
+}
+
+#question {
+    padding: 20px;
+
+}
+
+#picture {
+    padding: 20px;
+
+}
+
+#choices {
+    padding: 20px;
+    text-align: center;
+    margin: 5px;
+
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    color: #ffffff;
 }
