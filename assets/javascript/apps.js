@@ -6,6 +6,7 @@
 //once done with questions show how many right and how many wrong
 //reset button to begin again
 
+var hidden = [];
 var questions = [{
         question: "What Chelsea manager was famously sacked in December of 2015, less than a year after winning the title?",
         answers: ['Robert DiMatteo', 'Avram Grant', 'Jose Mourinho', 'Carlo Ancelotti'],
@@ -58,20 +59,22 @@ var game = {
             game.timeUp()
         }
 
-    },
+    }, //timer function
 
     loadQuestion: function() {
         timer = setInterval(game.counter, 1000);
         $("#question").html('<h2>' + questions[game.currentQuestion].question + '</h2>');
-         for (var i = 0; i < questions[game.currentQuestion].answers.length; i++) {
-            $("#choices").append('<input type = "radio" name = "answer" value= "'  
-                + questions[game.currentQuestion].answers[i] + '">' + questions[game.currentQuestion].answers[i] + '');
-
-         }
-         $("#choices").append('<button id = "submit"> + Submit + </button>')
-         $("#submit").click(function () {
+        for (var i = 0; i < questions[game.currentQuestion].answers.length; i++) {
+            $("#choices").append('<input type = "radio" name = "answer" value= "' +
+                questions[game.currentQuestion].answers[i] + '">' + questions[game.currentQuestion].answers[i] + '');
+        }
+        //create question with answer choices
+        $("#choices").append('<button id = "submit">  Submit  </button>')
+        $("#submit").click(function(event) {
+            event.preventDefault();
+            game.countdown();
             game.clicked();
-        });
+        }); //submit click 
 
 
     },
@@ -85,18 +88,32 @@ var game = {
 
     },
     clicked: function() {
+        $('input[name="answer"]:checked').val();
+        var checkedAnswer = document.getElementsByName('answer')
         console.log("hello");
+        var i = 0;
+        var hiddenHTML = questions[game.currentQuestion].correctAnswer[i];
+        hiddenHTML.innerHTML = hidden.join("");
+        //var checkedAnswer =  questions[game.currentQuestion].correctAnswer.join(' ');
+        for (i = 0; i < questions[game.currentQuestion].correctAnswer.length; i++)
+            console.log(questions[game.currentQuestion].correctAnswer[i]); {
+            if (checkedAnswer === questions[game.currentQuestion].correctAnswer[i]) {
+                alert("Correct!"); //right answer
+                game.nextQuestion(); //goes to next question
+            } else { //wrong answer
+                alert("Incorrect");
+                game.nextQuestion(); //goes to next question
+            }
+        }
 
     },
-    answeredCorrectly: function() {
+    endGame: function() {
 
     },
-    answeredIncorrectly: function() {
 
-    },
     reset: function() {
 
-    }
+    },
 }
 
 $("#start").click(function() {
@@ -105,48 +122,3 @@ $("#start").click(function() {
     console.log(game.currentQuestion);
 
 });
-
-/*var getQuestion = function() {
-    if (i < questions.length) {
-        $("#question").append = "questions[i]";
-        console.log(questions[i])
-    }
-    var choicesOutput = []; //new Array()
-    for (var k = 0; k < choices[i].length; k++) {
-        choicesOutput.push(
-            '<p><input type = "radio" name =' +
-            ' "questionchoice">' + choices[i][k] + '</p>');
-    }
-    $("#choices").innerHTML = choicesOutput.join("");
-    $("#choice2").innerHTML =
-        '<p><button onClick = "getRadioValue()">Check</button></p> <br>';
-}
-};
-var getChoice = function() {
-    for (var h = 0; h < document.getElementsByName('choices').length; h++) {
-        var value = '';
-        if (document.getElementsByName('questionchoice')[h].checked == true) {
-            value = document.getElementsByName('questionchoice')[h].value;
-            score += 1
-        }
-    };
-};
-getQuestion();
-
-
-
-/*function timerWrapper() {
-    theClock = setInterval(thirtySeconds, 1000);
-    function thirtySeconds() {
-        if (counter === 0) {
-            clearInterval(theClock);
-            generateLossDueToTimeOut();
-        }
-        if (counter > 0) {
-            counter--;
-        }
-        $(".timer").html(counter);
-    }
-}
-
-timerWrapper();*/
