@@ -8,7 +8,7 @@ body {
 header {
     padding: 10px;
     margin-bottom: 25px;
-    right: ;
+    margin: 30px; 
 }
 
 h1 {
@@ -33,15 +33,15 @@ h1 {
 }
 
 #start {
-    margin: 20px;
-    padding: 32px 50px;
+    margin: 100px;
+    padding: 32px 45px;
     background-color: #f9792e;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 30px;
     border-radius: 12px;
     border: 2px solid #0d0b70;
     text-align: center;
-}
+}/**start button**/
 
 
 #timer {
@@ -51,11 +51,12 @@ h1 {
 
 #question {
     padding: 20px;
-
+    text-align: center;
+    margin: 5px;
+    line-height: 20px;
 }
 
 #picture {
-    padding: 20px;
 
 }
 
@@ -63,11 +64,40 @@ h1 {
     padding: 20px;
     text-align: center;
     margin: 5px;
+    display: block;
+    line-height: 30px;
 
 }
 
+.next {
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9792e;
+    color: #ffffff;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 2px solid #0d0b70;
+    text-align: center;
+
+} /*next button*/
+
+#submit {
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9792e;
+    color: #ffffff;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 2px solid #0d0b70;
+    text-align: center;
+}
+
+form {
+    display: block;
+}
+
 footer {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     height: 100px;
     width: 100%;

@@ -6,7 +6,6 @@
 //once done with questions show how many right and how many wrong
 //reset button to begin again
 
-var hidden = [];
 var questions = [{
         question: "What Chelsea manager was famously sacked in December of 2015, less than a year after winning the title?",
         answers: ['Robert DiMatteo', 'Avram Grant', 'Jose Mourinho', 'Carlo Ancelotti'],
@@ -45,80 +44,115 @@ var questions = [{
     }
 ]
 
+
 var game = {
+    playing: false,
     questions: questions,
     currentQuestion: 0,
-    counter: 30,
     correct: 0,
     incorrect: 0,
-    countdown: function() {
-        game.counter--;
-        $("#timer").html("Time Remaining" + game.counter);
-        if (game.counter <= 0) {
-            console.log("TIME UP!");
-            game.timeUp()
-        }
 
-    }, //timer function
+    counter: 0,
+    timer: setInterval(function() { //timer won't stop something with the function name maybe?
+        if (game.counter == 0) {
+            if (game.playing == true) {
+                game.timeUp();
+                clearInterval(game.timer);
+            }
+        } else {
+            $("#timer").html("Time Remaining: " + game.counter);
+            game.counter--;
+        }
+    }, 1000), //timer function
 
     loadQuestion: function() {
-        timer = setInterval(game.counter, 1000);
+        game.playing = true;
+        game.counter = 30;
+        game.timer;
         $("#question").html('<h2>' + questions[game.currentQuestion].question + '</h2>');
+        $("#choices").html('');
         for (var i = 0; i < questions[game.currentQuestion].answers.length; i++) {
             $("#choices").append('<input type = "radio" name = "answer" value= "' +
                 questions[game.currentQuestion].answers[i] + '">' + questions[game.currentQuestion].answers[i] + '');
-        }
-        //create question with answer choices
+        } //create question with answer choices
         $("#choices").append('<button id = "submit">  Submit  </button>')
         $("#submit").click(function(event) {
             event.preventDefault();
-            game.countdown();
             game.clicked();
         }); //submit click 
-
-
-    },
-    nextQuestion: function() {
-
     },
     timeUp: function() {
-
-    },
-    results: function() {
-
+        $("#answer").html("Time Up: " + questions[game.currentQuestion].correctAnswer);
+        document.getElementById("picture").src = questions[game.currentQuestion].image; //picture won't work
+        $("#choices").html('');
+        $("#button").append('<button class = "next"> Next Question </button');
+        game.incorrect++;
     },
     clicked: function() {
-        $('input[name="answer"]:checked').val();
-        var checkedAnswer = document.getElementsByName('answer')
-        console.log("hello");
-        var i = 0;
-        var hiddenHTML = questions[game.currentQuestion].correctAnswer[i];
-        hiddenHTML.innerHTML = hidden.join("");
-        //var checkedAnswer =  questions[game.currentQuestion].correctAnswer.join(' ');
-        for (i = 0; i < questions[game.currentQuestion].correctAnswer.length; i++)
-            console.log(questions[game.currentQuestion].correctAnswer[i]); {
-            if (checkedAnswer === questions[game.currentQuestion].correctAnswer[i]) {
-                alert("Correct!"); //right answer
-                game.nextQuestion(); //goes to next question
-            } else { //wrong answer
-                alert("Incorrect");
-                game.nextQuestion(); //goes to next question
-            }
-        }
+        clearInterval(game.timer);
+        var checkedAnswer = $('input[name="answer"]:checked').val();
+        console.log(questions[game.currentQuestion].correctAnswer);
+        //right answer
+        if (checkedAnswer=== questions[game.currentQuestion].correctAnswer) {
+            $("#answer").html("Correct: " + questions[game.currentQuestion].correctAnswer);
+            document.getElementById("picture").src = (questions[game.currentQuestion].image); //picture won't work
+            $("#choices").html('');
+            $("#button").append('<button class = "next"> Next Question </button');
+            game.correct++;
 
+        } else { //wrong answer
+            clearInterval(game.timer);
+            $("#answer").html("Incorrect: " + questions[game.currentQuestion].correctAnswer);
+            $("#picture").append('<img src= questions[game.currentQuestion].image>'); //picture won't work
+            $("#choices").html('');
+            $("#button").append('<button class = "next"> Next Question </button');
+            game.incorrect++;
+        }
+        game.currentQuestion++;
+        $("#button").click(function() {
+            game.nextQuestion();
+        }); //goes to next question
     },
+
+
+    nextQuestion: function() {
+        $("#button").html('');
+        $("#answer").html('');
+        $("#picture").html('');
+        if (game.currentQuestion <= 5) {
+            game.loadQuestion(game.currentQuestion);
+        } else {
+            game.endGame();
+        }
+    },
+
     endGame: function() {
+        $("#question").html("<h2> Way to Go! </h2>");
+        $("#choices").html( 'Correct Answers: ' + game.correct + '<br>Incorrect Answers: ' + game.incorrect );
+        $("#picture").html('');
+        $("#button").append('<button class = "next"> Play Again </button>')
+        $("#button").click(function() {
+            game.reset();
+        });
 
     },
 
     reset: function() {
+        playing: false;
+        questions: questions;
+        currentQuestion: 0;
+        correct: 0;
+        incorrect: 0;
+
+        counter: 0;
+        game.loadQuestion();
 
     },
 }
 
 $("#start").click(function() {
     $("#start").remove();
-    game.loadQuestion();
     console.log(game.currentQuestion);
 
+    game.loadQuestion(game.currentQuestion);
 });
