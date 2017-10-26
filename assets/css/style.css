@@ -32,7 +32,7 @@ h1 {
 
 }
 
-#start {
+.start {
     margin: 100px;
     padding: 32px 45px;
     background-color: #f9792e;
@@ -80,6 +80,17 @@ h1 {
     text-align: center;
 
 } /*next button*/
+
+.playAgain {
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9792e;
+    color: #ffffff;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 2px solid #0d0b70;
+    text-align: center;
+}
 
 #submit {
     padding: 10px;
