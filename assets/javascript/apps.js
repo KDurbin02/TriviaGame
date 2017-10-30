@@ -120,6 +120,9 @@ var game = {
             $("#button").append('<button class = "next"> Next Question </button');
             game.incorrect++;
         }
+        $(document).on("click", ".next", function() {
+            game.nextQuestion();
+        });//goes to next question
     },
 
 
@@ -153,24 +156,19 @@ var game = {
 
     reset: function() {
        
-        game.playing = false;
-        // clearInterval(game.timer);
-        game.questions = 0;
-        game.currentQuestion = 0;
-        game.correct = 0;
-        game.incorrect = 0;
-        game.counter = 0;
-                
-    
+        // game.playing = false;
+        // // clearInterval(game.timer);
+        // game.questions = 0;
+        // game.currentQuestion = 0;
+        // game.correct = 0;
+        // game.incorrect = 0;
+        // game.counter = 0;
         // game.loadQuestion(game.currentQuestion);
+        location.reload();
      
         
     },
-}
-
-$(document).on("click", ".next", function() {
-    game.nextQuestion();
-}); //goes to next question
+}; 
 
 $(".start").click(function() {
     $(".start").remove();
